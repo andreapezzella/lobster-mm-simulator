@@ -1,0 +1,22 @@
+
+# --- Data (do not commit raw datasets) ---
+Data/*.csv
+Data/*.parquet
+Data/*.h5
+Data/*.pickle
+Data/*.pkl
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# --- OS files ---
+.DS_Store
