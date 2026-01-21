@@ -1,17 +1,47 @@
-# LOBSTER Limit Order Book Analytics & Market Making Simulator
+# MarketMaking-LOBSTER
 
-This project uses LOBSTER Level-10 (limit order book) data to:
-- load and align **message** and **orderbook** files (event-by-event),
-- compute core microstructure features (spread, midprice, microprice, imbalance),
-- build an event-driven **market making simulator** (baseline + inventory-aware variants).
+A small quant/microstructure project built on **LOBSTER** data.  
+Pipeline: **load & clean** → **L1 features** → **OFI L1** → **baseline market making simulator** (event-time, latency, inventory skew).
 
-## Repository structure
-- `Code/`: Jupyter notebooks (data loading, analytics, experiments)
-- `Class/`: reusable Python code (loader, features, simulator) *(work in progress)*
-- `Data/`: local datasets (**excluded from git** via `.gitignore`)
+The repo is intentionally notebook-first (easy to read), but outputs are saved as PNGs so results are visible on GitHub without running anything.
 
-## How to run
-1. Create/activate your Python environment (example: `anna5`)
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
+---
+
+## What’s inside
+
+**Notebooks**
+- `01_LOBSTER.ipynb` — load message + orderbook, handle dummy prices, compute basic top-of-book fields
+- `02_lob_analytics.ipynb` — L1 microstructure features (mid/spread/micro/imbalance) + a quick plot
+- `03_ofi_L1.ipynb` — OFI L1 + relation with next-event mid-price change (scatter) + normalized OFI
+- `04_mm_simulator_baseline.ipynb` — event-driven MM baseline (type-4 executions), latency in events, inventory-based size skew, metrics + curves
+
+**Outputs**
+- `reports/figures/` contains the saved plots used below.
+
+---
+
+## Data
+
+The notebooks expect two LOBSTER CSV files (message + orderbook).  
+In my case I used the GOOG sample:
+
+- `GOOG_2012-06-21_34200000_57600000_message_10.csv`
+- `GOOG_2012-06-21_34200000_57600000_orderbook_10.csv`
+
+By default the notebooks look for them in `../Data/` relative to `notebooks/`.
+
+Notes:
+- Dummy prices are handled (`9999999999` / `-9999999999`) by replacing them with `NaN` on price columns.
+- Full LOBSTER datasets are big: keep only small samples in the repo.
+
+---
+
+## Setup
+
+Minimal environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # mac/linux
+pip install -U pip
+pip install numpy pandas matplotlib jupyter pyarrow
