@@ -45,3 +45,19 @@ python -m venv .venv
 source .venv/bin/activate   # mac/linux
 pip install -U pip
 pip install numpy pandas matplotlib jupyter pyarrow
+
+## Simulator limitations (important)
+
+This is a baseline backtest built to be readable and consistent with LOBSTER event updates.  
+Results should be interpreted as *directional* rather than production-grade.
+
+Key limitations:
+- **No queue position model**: a posted quote is assumed to fill when an execution crosses the level; real fills depend on priority and order flow.
+- **No hidden liquidity / iceberg orders**: LOBSTER reflects visible book only.
+- **No maker/taker fees or rebates** (unless added): PnL ignores exchange micro-fees and rebate structure.
+- **No latency in price formation**: latency is modeled in *events* (re-quote delay), not as a full network/processing model.
+- **Partial fill / slippage is simplified**: fills are derived from type-4 executions; microstructure frictions are approximated.
+- **No dynamic risk controls**: inventory limits / penalties are simple; no volatility regime switching.
+- **Single-instrument only**: no cross-asset hedging or multi-venue routing.
+- **No train/test split**: parameters are not calibrated out-of-sample.
+
