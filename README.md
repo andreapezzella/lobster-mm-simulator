@@ -51,7 +51,7 @@ source .venv/bin/activate   # mac/linux
 pip install -U pip
 pip install numpy pandas matplotlib jupyter pyarrow
 
-Simulator limitations
+## Simulator limitations
 This simulator is meant as a baseline. The goal is to compare simple choices (latency, inventory skew, etc.) rather than to replicate a real exchange.
 In particular, I simplify a few things that matter in real market making. For example, I don’t model queue position: being at the best bid/ask does not guarantee you get filled in real life, because fills depend on how much size is ahead of you and how the queue changes. Here fills are approximated using execution events, which is enough for a first version but not “production accurate”.
 I also only use the visible book (so anything related to hidden liquidity is out of scope), and I don’t include a full fee/rebate model by default. Latency is implemented as a delay in re-quoting measured in number of events (event time), which is useful to see the effect of being slower, but it’s not a complete network/infra model.
