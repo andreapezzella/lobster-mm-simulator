@@ -50,6 +50,7 @@ python -m venv .venv
 source .venv/bin/activate   # mac/linux
 pip install -U pip
 pip install numpy pandas matplotlib jupyter pyarrow
+```
 
 ## Simulator limitations
 This simulator is meant as a baseline. The goal is to compare simple choices (latency, inventory skew, etc.) rather than to replicate a real exchange.
