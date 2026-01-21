@@ -1,4 +1,4 @@
-name: term_structure_prev
+name: marketmaking-lobster
 channels:
   - conda-forge
   - defaults
